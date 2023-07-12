@@ -22,14 +22,25 @@ jobs:
         go-version: 1.20
 
     - name: Create dirs
-      run: mkdir -p dist/win32 dist/linux dist/darwin
-      
-    - name: Build
-      run: |
-        args="-v -trimpath"
-        GOOS=linux GOARCH=amd64 go build $args -o dist/linux/quicclient ./...
-        GOOS=windows GOARCH=386 go build $args -o dist/win32/quicclient ./...
-        GOOS=darwin GOARCH=amd64 go build $args -o dist/darwin/quicclient ./...
+      run: mkdir -p dist/windows dist/linux dist/darwin
+
+    - name: Build Linux
+      env:
+        GOOS: linux
+        GOARCH: amd64
+      run: go build -v -trimpath -o dist/${GOOS}/quicclient ./...
+
+    - name: Build Windows
+      env:
+        GOOS: windows
+        GOARCH: 386
+      run: go build -v -trimpath -o dist/${GOOS}/quicclient ./...
+
+    - name: Build Darwin
+      env:
+        GOOS: darwin
+        GOARCH: amd64
+      run: go build -v -trimpath -o dist/${GOOS}/quicclient ./...
 
     - name: Test
       run: go test -v ./...
