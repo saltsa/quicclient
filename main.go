@@ -42,7 +42,7 @@ func client(addr string) error {
 	}
 
 	hc := http.Client{
-		Timeout:   5 * time.Second,
+		Timeout:   15 * time.Second,
 		Transport: roundTripper,
 	}
 
