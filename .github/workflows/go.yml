@@ -28,7 +28,7 @@ jobs:
       env:
         GOOS: linux
         GOARCH: amd64
-      run: go build -o dist/${GOOS}/quicclient -v -trimpath ./...
+      run: go build -o dist/${GOOS}/quicclient -v ./...
 
     - name: Build Windows
       env:
