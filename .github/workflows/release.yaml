@@ -10,6 +10,8 @@ on:
 
 jobs:
   build:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -32,7 +34,7 @@ jobs:
           cd dist
           sha256sum */* | tee SHA256SUMS
 
-      - name: Upload artifacts
+      - name: Upload release assets
         uses: softprops/action-gh-release@v1
         with:
           files: dist/*
