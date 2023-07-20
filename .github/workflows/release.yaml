@@ -1,0 +1,54 @@
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+name:
+
+on:
+  release:
+    types: ["published"]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: "1.20"
+
+    - name: Create dirs
+      run: mkdir -p dist/windows dist/linux dist/darwin
+
+    - name: Build Linux
+      env:
+        GOOS: linux
+        GOARCH: amd64
+      run: go build -trimpath -o dist/${GOOS}/quicclient ./...
+
+    - name: Build Windows
+      env:
+        GOOS: windows
+        GOARCH: 386
+      run: go build -trimpath -o dist/${GOOS}/quicclient ./...
+
+    - name: Build Darwin
+      env:
+        GOOS: darwin
+        GOARCH: amd64
+      run: go build -trimpath -o dist/${GOOS}/quicclient ./...
+
+    - name: Shasums
+      run: |
+        cd dist
+        sha256sum */* | tee SHA256SUMS
+
+    - name: Test
+      run: go test -v ./...
+
+    - name: Upload artifacts
+      uses: softprops/action-gh-release@v1
+      with:
+        files: dist
