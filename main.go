@@ -80,6 +80,10 @@ func main() {
 
 	addr := flag.Arg(0)
 
+	if addr == "" {
+		addr = os.Getenv("ADDR")
+	}
+
 	go client(addr)
 
 	quit := make(chan os.Signal, 1)
