@@ -19,7 +19,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v3
       with:
-        go-version: 1.20
+        go-version: "1.20"
 
     - name: Create dirs
       run: mkdir -p dist/windows dist/linux dist/darwin
@@ -28,19 +28,19 @@ jobs:
       env:
         GOOS: linux
         GOARCH: amd64
-      run: go build -o dist/${GOOS}/quicclient
+      run: go build -trimpath -o dist/${GOOS}/quicclient ./...
 
     - name: Build Windows
       env:
         GOOS: windows
         GOARCH: 386
-      run: go build -o dist/${GOOS}/quicclient
+      run: go build -trimpath -o dist/${GOOS}/quicclient ./...
 
     - name: Build Darwin
       env:
         GOOS: darwin
         GOARCH: amd64
-      run: go build -o dist/${GOOS}/quicclient
+      run: go build -trimpath -o dist/${GOOS}/quicclient ./...
 
     - name: Shasums
       run: |
