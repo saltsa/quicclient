@@ -84,6 +84,7 @@ func main() {
 		addr = os.Getenv("ADDR")
 	}
 
+	log.Println("quic client connecting to:", addr)
 	go client(addr)
 
 	quit := make(chan os.Signal, 1)
@@ -98,7 +99,7 @@ func main() {
 		log.Printf("got signal: %v", recv)
 
 		if recv == os.Interrupt || recv == syscall.SIGTERM {
-			log.Println("quitting")
+			log.Println("normal quit")
 			return
 		}
 	}
