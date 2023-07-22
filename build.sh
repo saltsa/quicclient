@@ -24,4 +24,4 @@ go build -trimpath -o $out/${app}_${GOOS} ./...
 
 cd $out
 echo sha256sum
-sha256sum */*
+sha256sum * | tee SHA256SUMS
