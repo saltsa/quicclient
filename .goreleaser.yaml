@@ -11,17 +11,13 @@ builds:
       - linux
       - windows
       - darwin
+    ldflags: ""
+    flags:
+      - -trimpath
 
 archives:
-  - format: binary
-    # this name template makes the OS and Arch compatible with the results of uname.
-    name_template: >-
-      {{ .ProjectName }}_
-      {{- title .Os }}_
-      {{- if eq .Arch "amd64" }}x86_64
-      {{- else if eq .Arch "386" }}i386
-      {{- else }}{{ .Arch }}{{ end }}
-      {{- if .Arm }}v{{ .Arm }}{{ end }}
+  - format: tar.gz
+    name_template: "{{ .ProjectName }}_{{- .Os }}_{{- .Arch }}"
 checksum:
   name_template: SHA256SUMS
 snapshot:
