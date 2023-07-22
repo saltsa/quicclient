@@ -19,7 +19,7 @@ export GOARCH=386
 go build -trimpath -o $out/${app}_${GOOS} ./...
 
 export GOOS=darwin
-export GOARCH=amd64
+export GOARCH=arm64
 go build -trimpath -o $out/${app}_${GOOS} ./...
 
 cd $out
