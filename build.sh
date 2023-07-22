@@ -4,7 +4,7 @@ set -e
 out="output"
 app="quicclient"
 
-mkdir -p $out/windows $out/linux $out/darwin
+mkdir -p $out
 
 go version
 
