@@ -1,5 +1,5 @@
-dist/
-output/
-./quicclient*
-build
-app.env
+/dist/
+/output/
+/quicclient
+/build
+/app.env
